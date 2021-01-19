@@ -5,18 +5,20 @@ import 'package:movies/src/models/movie_model.dart';
 
 class CardSwiper extends StatelessWidget {
   final List<Movie> movies;
-  CardSwiper({@required this.movies});
+  final double width;
+  final double height;
+  CardSwiper(
+      {@required this.movies, @required this.width, @required this.height});
 
   @override
   Widget build(BuildContext context) {
-    final _screenSize = MediaQuery.of(context).size;
-
+    
     return Container(
       padding: EdgeInsets.only(top: 10.0),
       child: Swiper(
         layout: SwiperLayout.STACK,
-        itemWidth: _screenSize.width * 0.7, // 70%
-        itemHeight: _screenSize.height * 0.5, // 50%
+        itemWidth: width , 
+        itemHeight: height,
         itemBuilder: (BuildContext context, int index) {
           return ClipRRect(
               borderRadius: BorderRadius.circular(20.0),

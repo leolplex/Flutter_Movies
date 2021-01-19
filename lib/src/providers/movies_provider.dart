@@ -12,9 +12,19 @@ class MoviesProvider {
   Future<List<Movie>> getOnCinema() async {
     final url = Uri.https(_url, '3/movie/now_playing',
         {'api_key': _apiKey, 'language': _language});
+    return await processResponse(url);
+  }
+
+  Future<List<Movie>> getPopulars() async {
+    final url = Uri.https(
+        _url, '3/movie/popular', {'api_key': _apiKey, 'language': _language});
+    return await processResponse(url);
+  }
+
+  Future<List<Movie>> processResponse(Uri url) async {
     final response = await http.get(url);
     final decodeData = json.decode(response.body);
-    final movies = new Movies.fromJsonList(decodeData['results']);    
+    final movies = new Movies.fromJsonList(decodeData['results']);
 
     return movies.items;
   }

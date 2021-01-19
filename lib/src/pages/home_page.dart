@@ -18,24 +18,56 @@ class HomePage extends StatelessWidget {
         ),
         body: SafeArea(
           child: Column(
-            children: <Widget>[_swipeCards()],
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[_swipeCards(context), _footer(context)],
           ),
         ));
   }
 
-  Widget _swipeCards() {
+  Widget _swipeCards(BuildContext context) {
+    final _screenSize = MediaQuery.of(context).size;
     return FutureBuilder(
       future: moviesProvider.getOnCinema(),
       builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
         if (snapshot.hasData) {
           return CardSwiper(
             movies: snapshot.data,
+            width: _screenSize.width * 0.7, // 70%
+            height: _screenSize.height * 0.5, // 50%
           );
         } else {
           return Container(
               height: 400.0, child: Center(child: CircularProgressIndicator()));
         }
       },
+    );
+  }
+
+  Widget _footer(BuildContext context) {
+    final _screenSize = MediaQuery.of(context).size;
+    return Container(
+      width: double.infinity,
+      child: Column(
+        children: <Widget>[
+          Text("Populares", style: Theme.of(context).textTheme.subtitle1),
+          FutureBuilder(
+            future: moviesProvider.getPopulars(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData) {
+                return CardSwiper(
+                  movies: snapshot.data,
+                  width: _screenSize.width * 0.8, // 70%
+                  height: _screenSize.height * 0.3, // 50%
+                );
+              } else {
+                return Container(
+                    height: 400.0,
+                    child: Center(child: CircularProgressIndicator()));
+              }
+            },
+          ),
+        ],
+      ),
     );
   }
 }

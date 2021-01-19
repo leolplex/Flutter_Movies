@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:movies/src/providers/movies_provider.dart';
 import 'package:movies/src/widgets/card_swiper_widget.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key key}) : super(key: key);
+  final moviesProvider = new MoviesProvider();
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +24,18 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _swipeCards() {
-    return CardSwiper(
-      movies: [1, 2, 3, 4, 5],
+    return FutureBuilder(
+      future: moviesProvider.getOnCinema(),
+      builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+        if (snapshot.hasData) {
+          return CardSwiper(
+            movies: snapshot.data,
+          );
+        } else {
+          return Container(
+              height: 400.0, child: Center(child: CircularProgressIndicator()));
+        }
+      },
     );
   }
 }

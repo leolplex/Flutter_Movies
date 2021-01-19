@@ -49,7 +49,7 @@ class Movie {
   Movie.fromJsonMap(Map<String, dynamic> json) {
     adult = json['adult'];
     backdropPath = json['backdrop_path'];
-    genreIds = json['genreIds'].cast<int>();
+    genreIds = json['genreIds'];
     id = json['id'];
     originalLanguage = json['original_language'];
     originalTitle = json['original_title'];
@@ -61,5 +61,13 @@ class Movie {
     video = json['video'];
     voteAverage = json['vote_average'] / 1;
     voteCount = json['vote_count'];
+  }
+
+  getPosterImage() {
+    if (posterPath == null) {
+      return 'https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png';
+    } else {
+      return 'https://image.tmdb.org/t/p/w500/$posterPath';
+    }
   }
 }

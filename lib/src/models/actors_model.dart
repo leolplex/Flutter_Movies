@@ -63,7 +63,7 @@ class Actor {
 
   getProfileImage() {
     if (profilePath == null) {
-      return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbwBHEMu9GkoVQtoGJ2V7BJMJZ81QJhV8TYA&usqp=CAU';
+      return 'https://www.intra-tp.com/wp-content/uploads/2017/02/no-avatar.png';
     } else {
       return 'https://image.tmdb.org/t/p/w500/$profilePath';
     }

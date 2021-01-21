@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:movies/src/models/movie_model.dart';
+import 'package:movies/src/providers/movies_provider.dart';
 
 class DataSearch extends SearchDelegate {
-  String selected = "";
-  final movies = [
-    'Spiderman',
-    'Auaman',
-    'Batman',
-    'Shazam!',
-    'Captain America'
-  ];
-  final lastMovies = ['Spiderman', 'Captain America'];
+  final moviesProvider = new MoviesProvider();
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -39,39 +33,43 @@ class DataSearch extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     // Create the results to show
-    return Center(
-      child: Container(
-        height: 100.0,
-        width: 100.0,
-        color: Colors.blueAccent,
-        child: Text(selected),
-      ),
-    );
+    return Center();
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
     // Suggestions to show when somebody writes
 
-    final suggestList = (query.isEmpty)
-        ? lastMovies
-        : movies
-            .where((element) =>
-                element.toLowerCase().startsWith(query.toLowerCase()))
-            .toList();
+    if (query.isEmpty) return Container();
 
-    return ListView.builder(
-      itemBuilder: (context, i) {
-        return ListTile(
-          leading: Icon(Icons.movie),
-          title: Text(suggestList[i]),
-          onTap: () {
-            selected = suggestList[i];
-            showResults(context);
-          },
-        );
+    return FutureBuilder(
+      future: moviesProvider.getMovie(query),
+      builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
+        if (snapshot.hasData) {
+          final movies = snapshot.data;
+          return ListView(
+            children: movies.map((movie) {
+              return ListTile(
+                leading: FadeInImage(
+                  image: NetworkImage(movie.getPosterImage()),
+                  placeholder: AssetImage("aasets/img/no-image.jpg"),
+                  fit: BoxFit.contain,
+                  width: 50.0,
+                ),
+                title: Text(movie.title),
+                subtitle: Text(movie.originalTitle),
+                onTap: () {
+                  close(context, null);
+                  movie.uniqueId = "";
+                  Navigator.pushNamed(context, 'detail', arguments: movie);
+                },
+              );
+            }).toList(),
+          );
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
       },
-      itemCount: suggestList.length,
     );
   }
 }

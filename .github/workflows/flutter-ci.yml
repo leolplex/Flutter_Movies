@@ -17,7 +17,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest]
     steps:
-      - run: export SomVar="$(pwd)/key.jks"
+      - run: sudo export SomVar="$(pwd)/key.jks"
       - run: echo $SomVar
       - uses: actions/checkout@v2
       - uses: actions/setup-java@v1

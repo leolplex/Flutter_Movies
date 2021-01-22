@@ -34,4 +34,9 @@ jobs:
       - run: flutter --version
       - run: flutter pub get
       - run: flutter test
+      - run: echo "storePassword=${{ secrets.STOREPASSWORD }}" >> key.properties
+      - run: echo "keyPassword=${{ secrets.KEYPASSWORD }}" >> key.properties
+      - run: echo "keyAlias=${{ secrets.KEYALIAS }}" >> key.properties
+      - run: echo "storeFile=${{ secrets.STOREFILE }}" >> key.properties
+      - run: cat key.properties
       - run: flutter build apk

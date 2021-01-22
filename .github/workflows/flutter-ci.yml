@@ -29,6 +29,8 @@ jobs:
       - run: flutter --version
       - run: flutter pub get
       - run: flutter test
+      - run: pwd
+      - run: ls -a
       - run: flutter build apk --release
         env:
           KEY_STORE_PASSWORD: ${{ secrets.STOREPASSWORD }}

@@ -29,7 +29,7 @@ jobs:
       - run: flutter --version
       - run: flutter pub get
       - run: flutter test
-      - run: export STORE_FILE_APK='$(pwd)/key.jks'
+      - run: export STORE_FILE_APK="$(pwd)""/key.jks"
       - run: echo $STORE_FILE_APK
       - run: flutter build apk --release
         env:

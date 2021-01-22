@@ -29,11 +29,10 @@ jobs:
       - run: flutter --version
       - run: flutter pub get
       - run: flutter test
-      - run: export STORE_FILE_APK="$(pwd)""/key.jks"
-      - run: echo $STORE_FILE_APK
+      - run: echo "$(pwd)""/key.jks"
       - run: flutter build apk --release
         env:
           KEY_STORE_PASSWORD: ${{ secrets.STOREPASSWORD }}
           KEY_PASSWORD: ${{ secrets.KEYPASSWORD }}
           ALIAS: ${{ secrets.KEYALIAS }}
-          KEY_STORE_FILE: ${{STORE_FILE_APK}}
+          KEY_STORE_FILE: "$(pwd)""/key.jks"

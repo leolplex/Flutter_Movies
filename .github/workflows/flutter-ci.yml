@@ -36,4 +36,4 @@ jobs:
           KEY_STORE_PASSWORD: ${{ secrets.STOREPASSWORD }}
           KEY_PASSWORD: ${{ secrets.KEYPASSWORD }}
           ALIAS: ${{ secrets.KEYALIAS }}
-          KEY_STORE_FILE:  /Users/runner/work/Flutter_Movies/Flutter_Movies/key.jks
+          KEY_STORE_FILE:  /home/runner/work/Flutter_Movies/Flutter_Movies/key.jks

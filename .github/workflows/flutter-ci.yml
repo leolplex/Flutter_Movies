@@ -34,6 +34,5 @@ jobs:
       - run: flutter --version
       - run: flutter pub get
       - run: flutter test
-      - run: echo storePassword=$STOREPASSWORD keyPassword=$KEYPASSWORD keyAlias=$KEYALIAS storeFile=$STOREFILE > key2.jks
-      - run: cat key2.jks
+      - run: echo storePassword=$STOREPASSWORD keyPassword=$KEYPASSWORD keyAlias=$KEYALIAS storeFile=$STOREFILE > key.jks
       - run: flutter build apk

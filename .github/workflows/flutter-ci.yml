@@ -34,5 +34,5 @@ jobs:
       - run: flutter --version
       - run: flutter pub get
       - run: flutter test
-      - run: pwd
+      - run: echo $STOREFILE
       - run: flutter build apk

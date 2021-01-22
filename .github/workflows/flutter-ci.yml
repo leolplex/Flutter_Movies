@@ -34,5 +34,4 @@ jobs:
       - run: flutter --version
       - run: flutter pub get
       - run: flutter test
-      - run: echo 'storePassword=${STOREPASSWORD} keyPassword=${KEYPASSWORD} keyAlias=${KEYALIAS} storeFile=${STOREFILE}' > /android/key.properties
       - run: flutter build apk

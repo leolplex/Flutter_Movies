@@ -35,4 +35,4 @@ jobs:
           KEY_STORE_PASSWORD: ${{ secrets.STOREPASSWORD }}
           KEY_PASSWORD: ${{ secrets.KEYPASSWORD }}
           ALIAS: ${{ secrets.KEYALIAS }}
-          KEY_STORE_FILE: ../key.jks
+          KEY_STORE_FILE: /key.jks

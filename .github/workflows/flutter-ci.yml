@@ -13,11 +13,6 @@ jobs:
   test:
     name: Test on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
-    env:
-      KEY_STORE_PASSWORD: ${{ secrets.STOREPASSWORD  }}
-      KEY_PASSWORD: ${{ secrets.KEYPASSWORD   }}
-      ALIAS: ${{ secrets.KEYALIAS   }}
-      KEY_PATH: ${{ secrets.STOREFILE   }}
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
@@ -34,5 +29,9 @@ jobs:
       - run: flutter --version
       - run: flutter pub get
       - run: flutter test
-      - run: cat key.properties
       - run: flutter build apk
+        env:
+          KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          ALIAS: ${{ secrets.ALIAS }}
+          KEY_PATH: key.jks

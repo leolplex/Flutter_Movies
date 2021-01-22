@@ -14,10 +14,10 @@ jobs:
     name: Test on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     env:
-      STOREPASSWORD: ${{ secrets.STOREPASSWORD  }}
-      KEYPASSWORD: ${{ secrets.KEYPASSWORD   }}
-      KEYALIAS: ${{ secrets.KEYALIAS   }}
-      STOREFILE: ${{ secrets.STOREFILE   }}
+      KEY_STORE_PASSWORD: ${{ secrets.STOREPASSWORD  }}
+      KEY_PASSWORD: ${{ secrets.KEYPASSWORD   }}
+      ALIAS: ${{ secrets.KEYALIAS   }}
+      KEY_PATH: ${{ secrets.STOREFILE   }}
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
@@ -34,9 +34,5 @@ jobs:
       - run: flutter --version
       - run: flutter pub get
       - run: flutter test
-      - run: echo "storePassword=${{ secrets.STOREPASSWORD }}" >> key.properties
-      - run: echo "keyPassword=${{ secrets.KEYPASSWORD }}" >> key.properties
-      - run: echo "keyAlias=${{ secrets.KEYALIAS }}" >> key.properties
-      - run: echo "storeFile=${{ secrets.STOREFILE }}" >> key.properties
       - run: cat key.properties
       - run: flutter build apk

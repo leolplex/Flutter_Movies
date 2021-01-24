@@ -10,7 +10,7 @@ on:
 # on: push    # Default will running for every branch.
 
 jobs:
-  ubuntu:
+  test_build:
     name: Test on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:

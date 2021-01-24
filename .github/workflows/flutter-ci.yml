@@ -15,7 +15,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, macos-latest]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-java@v1
@@ -35,28 +35,3 @@ jobs:
           KEY_PASSWORD: ${{ secrets.KEYPASSWORD }}
           ALIAS: ${{ secrets.KEYALIAS }}
           KEY_STORE_FILE: ../../key.jks
-  macos:
-    name: Test on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [macos-latest]
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-java@v1
-        with:
-          java-version: '12.x'
-      - uses: subosito/flutter-action@v1
-        with:
-          flutter-version: '1.20.2'
-          channel: 'beta'
-      - run: dart --version
-      - run: flutter --version
-      - run: flutter pub get
-      - run: flutter test        
-      - run: flutter build ios --release
-        env:
-          KEY_STORE_PASSWORD: ${{ secrets.STOREPASSWORD }}
-          KEY_PASSWORD: ${{ secrets.KEYPASSWORD }}
-          ALIAS: ${{ secrets.KEYALIAS }}
-          KEY_STORE_FILE: ../../key.jks 
